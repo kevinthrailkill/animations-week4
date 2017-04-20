@@ -90,7 +90,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="E5r-y2-nln">
                     <connections>
-                        <action selector="smileyPanGesture:" destination="BYZ-38-t0r" id="Wuo-oN-wxa"/>
+                        <action selector="panAction:" destination="BYZ-38-t0r" id="C42-Rq-EgW"/>
                     </connections>
                 </panGestureRecognizer>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="jt7-N0-3gz">
