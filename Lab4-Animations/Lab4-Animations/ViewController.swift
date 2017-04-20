@@ -15,6 +15,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var trayCenterWhenClosed: CGPoint!
     var newlyCreatedFace: UIImageView!
     
+    @IBOutlet weak var arrowImage: UIImageView!
     @IBOutlet weak var trayView: UIView!
     
     override func viewDidLoad() {
@@ -42,21 +43,15 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             let velocity = panGestureRecognizer.velocity(in: trayView)
             
             if velocity.y < 0 {
-                
-  
                 UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 5, options: [], animations: {
+                    self.arrowImage.transform = CGAffineTransform(rotationAngle: 0)
                     self.trayView.center = self.trayCenterWhenOpen
                 }, completion: nil)
-            
-                
-                
             } else{
-       
-                
                 UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 5, options: [], animations: {
+                    self.arrowImage.transform = CGAffineTransform(rotationAngle: .pi)
                     self.trayView.center = self.trayCenterWhenClosed
                 }, completion: nil)
-                
             }
             
         } else if panGestureRecognizer.state == .ended {
