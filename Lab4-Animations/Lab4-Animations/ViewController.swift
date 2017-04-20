@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
     var trayOriginalCenter: CGPoint!
     var trayCenterWhenOpen: CGPoint!
@@ -48,7 +48,6 @@ class ViewController: UIViewController {
                     self.trayView.center = self.trayCenterWhenOpen
                 }, completion: nil)
             
-                
                 
                 
             } else{
@@ -92,7 +91,25 @@ class ViewController: UIViewController {
             
             // Attach it to a view of your choice. If it's a UIImageView, remember to enable user interaction
             newlyCreatedFace.isUserInteractionEnabled = true
+            
+            panGestureRecognizer.delegate = self
+            
             newlyCreatedFace.addGestureRecognizer(panGestureRecognizer)
+            
+            
+            
+            let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(didPinch(sender:)))
+            
+            pinchGestureRecognizer.delegate = self
+            newlyCreatedFace.addGestureRecognizer(pinchGestureRecognizer)
+            
+            let rotateGestureRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(didRotate(sender:)))
+            
+            rotateGestureRecognizer.delegate = self
+            
+            newlyCreatedFace.addGestureRecognizer(rotateGestureRecognizer)
+            
+            
             
         } else if panGestureRecognizer.state == .changed {
             print("Gesture changed at: \(point)")
@@ -114,5 +131,25 @@ class ViewController: UIViewController {
             sender.view?.transform = CGAffineTransform(scaleX: 1, y: 1)
         }
     }
+    
+    func didPinch(sender: UIPinchGestureRecognizer) {
+        let scale = sender.scale
+        
+        sender.view?.transform = CGAffineTransform(scaleX: scale, y: scale)
+    }
+    
+    func didRotate(sender: UIRotationGestureRecognizer) {
+        
+        let rotation = sender.rotation
+        
+        sender.view?.transform = CGAffineTransform(rotationAngle: rotation)
+        
+        
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
 }
 
